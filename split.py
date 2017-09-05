@@ -39,24 +39,41 @@ def my_split(string, sep=None, maxsplit=-1):
 
 class TestMySplit(unittest.TestCase):
 
-    def __init__(self, methodName='runTest'):
-        super().__init__(methodName=methodName)
+    # class variable using self like sleep
+    attribute = 'new'
+    string_1 = 'mic___hal___mod___lin___ski'
+    sep_1 = '___'
+    sep_2 = '__'
+    sep_3 = '_'
+    sep_4 = 'mic'
+    sep_5 = 'ski'
+    sep_6 = 'm'
+    sep_7 = 'i'
+    sep_8 = 'l_'
+    sep_9 = '_m'
+    sep_10 = ''
+    sep_11 = 'long---------------------------------string'
+    sep_12 = 100
+    sep_13 = 0  # important test case for this
 
-        self.attribute = 'new'
-        self.string_1 = 'mic___hal___mod___lin___ski'
-        self.sep_1 = '___'
-        self.sep_2 = '__'
-        self.sep_3 = '_'
-        self.sep_4 = 'mic'
-        self.sep_5 = 'ski'
-        self.sep_6 = 'm'
-        self.sep_7 = 'i'
-        self.sep_8 = 'l_'
-        self.sep_9 = '_m'
-        self.sep_10 = ''
-        self.sep_11 = 'long---------------------------------string'
-        self.sep_12 = 100
-        self.sep_13 = 0  # important test case for this
+    # def __init__(self, methodName='runTest'):
+    #     super().__init__(methodName=methodName)
+    #
+    #     self.attribute = 'new'
+    #     self.string_1 = 'mic___hal___mod___lin___ski'
+    #     self.sep_1 = '___'
+    #     self.sep_2 = '__'
+    #     self.sep_3 = '_'
+    #     self.sep_4 = 'mic'
+    #     self.sep_5 = 'ski'
+    #     self.sep_6 = 'm'
+    #     self.sep_7 = 'i'
+    #     self.sep_8 = 'l_'
+    #     self.sep_9 = '_m'
+    #     self.sep_10 = ''
+    #     self.sep_11 = 'long---------------------------------string'
+    #     self.sep_12 = 100
+    #     self.sep_13 = 0  # important test case for this
 
     def test_1(self):
         self.assertEqual(my_split(self.string_1, self.sep_1), self.string_1.split(self.sep_1))
