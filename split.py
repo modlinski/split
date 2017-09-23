@@ -12,27 +12,40 @@ def my_split(string, sep=None, maxsplit=-1):
 
     split_list = []
 
-    if sep is None or sep not in string:
-        split_list.append(string)
-
+    if type(sep) != str and sep is not None or type(maxsplit) != int:
+        raise TypeError
     elif sep == '':
         raise ValueError
-
-    elif type(sep) != str:
-        raise TypeError
-
+    elif sep is None or sep not in string or maxsplit == 0:
+        split_list.append(string)
     elif sep:
-        end = False
-        while not end:
-            for i in range(len(string) - len(sep) + 1):
-                if string[i:i + len(sep)] == sep:
-                    first = string[:i]
-                    split_list.append(first)
-                    string = string[i+len(sep):]
-                    break
-            else:
-                split_list.append(string)
-                end = True
+        if maxsplit <= -1:
+            end = False
+            while not end:
+                for i in range(len(string) - len(sep) + 1):
+                    if string[i:i + len(sep)] == sep:
+                        first = string[:i]
+                        split_list.append(first)
+                        string = string[i+len(sep):]
+                        break
+                else:
+                    split_list.append(string)
+                    end = True
+        else:
+            end = False
+            while not end and maxsplit > 0:
+                for i in range(len(string) - len(sep) + 1):
+                    if string[i:i + len(sep)] == sep:
+                        first = string[:i]
+                        split_list.append(first)
+                        string = string[i+len(sep):]
+                        maxsplit -= 1
+                        if maxsplit == 0:
+                            split_list.append(string)
+                        break
+                else:
+                    split_list.append(string)
+                    end = True
     return split_list
 
 
@@ -60,20 +73,35 @@ class TestMySplit(unittest.TestCase):
     def test_last_one_letter(self):
         self.assertEqual(my_split('abc___def___cba___fed', 'd'), ['abc___', 'ef___cba___fe', ''])
 
+    def test_string_the_same_as_parameter(self):
+        self.assertEqual(my_split('abc___def___ghi', 'abc___def___ghi'), ['', ''])
+
     def test_no_parameters(self):
         self.assertEqual(my_split('abc___def___ghi___jkl'), ['abc___def___ghi___jkl'])
 
     def test_separator_longer_than_string(self):
         self.assertEqual(my_split('abc_def', 'longer_than_string'), ['abc_def'])
 
-    def test_value_error_empty_string(self):
-        self.assertRaises(ValueError, my_split, 'mic___hal___mod___lin___ski', '')
+    def test_type_error_maxsplit_stopped_by_maxsplit(self):
+        self.assertEqual(my_split('abc___def___ghi___jkl', '___', 2), ['abc', 'def', 'ghi___jkl'])
 
-    def test_type_error_int_one_hundred(self):
-        self.assertRaises(TypeError, my_split, 'mic___hal___mod___lin___ski', 100)
+    def test_type_error_maxsplit_stopped_by_end_parameter(self):
+        self.assertEqual(my_split('abc___def___ghi___jkl', '___', 20), ['abc', 'def', 'ghi', 'jkl'])
 
-    def test_type_error_int_zero(self):
-        self.assertRaises(TypeError, my_split, 'mic___hal___mod___lin___ski', 0)
+    def test_value_error_sep_empty_string(self):
+        self.assertRaises(ValueError, my_split, 'abc___def___ghi___jkl', '')
+
+    def test_type_error_sep_int_one_hundred(self):
+        self.assertRaises(TypeError, my_split, 'abc___def___ghi___jkl', 100)
+
+    def test_type_error_sep_int_zero(self):
+        self.assertRaises(TypeError, my_split, 'abc___def___ghi___jkl', 0)
+
+    def test_type_error_sep_empty_list(self):
+        self.assertRaises(TypeError, my_split, 'abc___def___ghi___jkl', [])
+
+    def test_type_error_maxsplit_float(self):
+        self.assertRaises(TypeError, my_split, 'abc___def___ghi___jkl', 'a', -1.5)
 
 if __name__ == '__main__':
     unittest.main()
