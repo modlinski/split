@@ -24,8 +24,7 @@ def my_split(string, sep=None, maxsplit=-1):
             while not end:
                 for i in range(len(string) - len(sep) + 1):
                     if string[i:i + len(sep)] == sep:
-                        first = string[:i]
-                        split_list.append(first)
+                        split_list.append(string[:i])
                         string = string[i+len(sep):]
                         break
                 else:
@@ -36,8 +35,7 @@ def my_split(string, sep=None, maxsplit=-1):
             while not end and maxsplit > 0:
                 for i in range(len(string) - len(sep) + 1):
                     if string[i:i + len(sep)] == sep:
-                        first = string[:i]
-                        split_list.append(first)
+                        split_list.append(string[:i])
                         string = string[i+len(sep):]
                         maxsplit -= 1
                         if maxsplit == 0:
