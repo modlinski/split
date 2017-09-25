@@ -16,6 +16,11 @@ def my_split(string, sep=None, maxsplit=-1):
         raise TypeError
     elif sep == '':
         raise ValueError
+
+    # TODO: Update and refactor conditions after checking new specific cases, if needed.
+    elif string == '' and sep is None:
+        return split_list
+
     elif sep is None or sep not in string or maxsplit == 0:
         split_list.append(string)
     elif sep:
@@ -46,6 +51,58 @@ def my_split(string, sep=None, maxsplit=-1):
                     end = True
     return split_list
 
+# TODO: Checks more specific cases and add new unit tests, if needed.
+#
+# print(my_split(''))
+# print(''.split())
+# print(my_split('', sep=''))
+# print(''.split(sep=''))
+# print(my_split('', sep='___'))
+# print(''.split(sep='___'))
+# print(my_split('', sep=3))
+# print(''.split(sep=3))
+# print(my_split('', maxsplit=0))
+# print(''.split(maxsplit=0))
+# print(my_split('', sep='', maxsplit=0))
+# print(''.split(sep='', maxsplit=0))
+# print(my_split('', sep='___', maxsplit=0))
+# print(''.split(sep='___', maxsplit=0))
+# print(my_split('', sep=3, maxsplit=0))
+# print(''.split(sep=3, maxsplit=0))
+# print(my_split('', maxsplit=[]))
+# print(''.split(maxsplit=[]))
+# print(my_split('', sep='', maxsplit=[]))
+# print(''.split(sep='', maxsplit=[]))
+# print(my_split('', sep='___', maxsplit=[]))
+# print(''.split(sep='___', maxsplit=[]))
+# print(my_split('', sep=3, maxsplit=[]))
+# print(''.split(sep=3, maxsplit=[]))
+#
+# print(my_split('abc___def___ghi___jkl'))
+# print(my_split('abc___def___ghi___jkl', sep=''))
+# print(my_split('abc___def___ghi___jkl', sep='___'))
+# print(my_split('abc___def___ghi___jkl', sep=3))
+# print(my_split('abc___def___ghi___jkl', maxsplit=0))
+# print(my_split('abc___def___ghi___jkl', sep='', maxsplit=0))
+# print(my_split('abc___def___ghi___jkl', sep='___', maxsplit=0))
+# print(my_split('abc___def___ghi___jkl', sep=3, maxsplit=0))
+# print(my_split('abc___def___ghi___jkl', maxsplit=[]))
+# print(my_split('abc___def___ghi___jkl', sep='', maxsplit=[]))
+# print(my_split('abc___def___ghi___jkl', sep='___', maxsplit=[]))
+# print(my_split('abc___def___ghi___jkl', sep=3, maxsplit=[]))
+#
+# print(my_split(3))
+# print(my_split(3, sep=''))
+# print(my_split(3, sep='___'))
+# print(my_split(3, sep=3))
+# print(my_split(3, maxsplit=0))
+# print(my_split(3, sep='', maxsplit=0))
+# print(my_split(3, sep='___', maxsplit=0))
+# print(my_split(3, sep=3, maxsplit=0))
+# print(my_split(3, maxsplit=[]))
+# print(my_split(3, sep='', maxsplit=[]))
+# print(my_split(3, sep='___', maxsplit=[]))
+# print(my_split(3, sep=3, maxsplit=[]))
 
 # good practise is to add a few test cases before implementing a function
 class TestMySplit(unittest.TestCase):
@@ -100,6 +157,7 @@ class TestMySplit(unittest.TestCase):
 
     def test_type_error_maxsplit_float(self):
         self.assertRaises(TypeError, my_split, 'abc___def___ghi___jkl', 'a', -1.5)
+
 
 if __name__ == '__main__':
     unittest.main()
